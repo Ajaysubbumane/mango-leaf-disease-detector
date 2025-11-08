@@ -18,13 +18,15 @@ RUN pip install --no-cache-dir -r requirements-server.txt
 # Copy application code (NOT model files)
 COPY app.py /app/
 
-# Model directory (volumes or download at runtime)
+# Model directory (will be created, weights optional)
 RUN mkdir -p /app/saved_models/7
 
-# Try to download model from GitHub Release (optional, for cloud deployment)
+# Try to download model from GitHub Release (optional for cloud deployment)
+# If it fails, app will still start but with random weights
 RUN apt-get update && apt-get install -y --no-install-recommends wget && rm -rf /var/lib/apt/lists/* && \
-    wget -O /app/saved_models/7/model_weights.weights.h5 \
-    https://github.com/Ajaysubbumane/mango-leaf-disease-detector/releases/download/v7/model_weights.weights.h5 2>/dev/null || true
+    wget --quiet --tries=2 -O /app/saved_models/7/model_weights.weights.h5 \
+    https://github.com/Ajaysubbumane/mango-leaf-disease-detector/releases/download/v7/model_weights.weights.h5 2>/dev/null || \
+    echo "⚠️  Model weights not available, API will use random initialization"
 
 # Expose port
 ENV PORT=8080

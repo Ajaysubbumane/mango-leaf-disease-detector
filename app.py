@@ -90,36 +90,44 @@ def build_model():
     try:
         from tfswin import SwinTransformerTiny224
     except ImportError:
-        return {"error": "tfswin package not found"}
+        print("[!] tfswin package not found")
+        return None
     
     IMAGE_SIZE = (224, 224)
-    backbone = SwinTransformerTiny224(include_top=False, 
-                                     input_shape=(*IMAGE_SIZE, 3),
-                                     weights='imagenet')
-    backbone.trainable = True
-    
-    x = backbone.output
-    x = layers.GlobalAveragePooling2D()(x)
-    x = layers.Dense(512, activation='relu')(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Dropout(0.5)(x)
-    x = layers.Dense(256, activation='relu')(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Dropout(0.4)(x)
-    x = layers.Dense(128, activation='relu')(x)
-    x = layers.Dropout(0.3)(x)
-    output = layers.Dense(8, activation='softmax')(x)
-    
-    model = models.Model(inputs=backbone.input, outputs=output)
-    model.compile(optimizer=tf.keras.optimizers.Adam(1e-5),
-                 loss='sparse_categorical_crossentropy',
-                 metrics=['accuracy'])
-    
-    if not os.path.exists(WEIGHTS_PATH):
-        raise FileNotFoundError(f"Model weights not found at {WEIGHTS_PATH}")
-    
-    model.load_weights(WEIGHTS_PATH)
-    return model
+    try:
+        backbone = SwinTransformerTiny224(include_top=False, 
+                                         input_shape=(*IMAGE_SIZE, 3),
+                                         weights='imagenet')
+        backbone.trainable = True
+        
+        x = backbone.output
+        x = layers.GlobalAveragePooling2D()(x)
+        x = layers.Dense(512, activation='relu')(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.Dropout(0.5)(x)
+        x = layers.Dense(256, activation='relu')(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.Dropout(0.4)(x)
+        x = layers.Dense(128, activation='relu')(x)
+        x = layers.Dropout(0.3)(x)
+        output = layers.Dense(8, activation='softmax')(x)
+        
+        model = models.Model(inputs=backbone.input, outputs=output)
+        model.compile(optimizer=tf.keras.optimizers.Adam(1e-5),
+                     loss='sparse_categorical_crossentropy',
+                     metrics=['accuracy'])
+        
+        # Try to load weights if they exist
+        if os.path.exists(WEIGHTS_PATH):
+            model.load_weights(WEIGHTS_PATH)
+            print(f"[✓] Model weights loaded from {WEIGHTS_PATH}")
+        else:
+            print(f"[!] Model weights not found at {WEIGHTS_PATH} - using random initialization")
+        
+        return model
+    except Exception as e:
+        print(f"[✗] Error building model: {e}")
+        return None
 
 # Global flag to track model loading
 _model_loaded = False
@@ -128,25 +136,32 @@ _model_loaded = False
 def load_model_if_needed():
     """Load model on first request (Flask 3.0 compatible)"""
     global model, _model_loaded
-    if not _model_loaded and model is None:
+    if not _model_loaded:
         try:
             model = build_model()
-            _model_loaded = True
-            print("[✓] Model loaded successfully on first request")
+            if model is not None:
+                _model_loaded = True
+                print("[✓] Model loaded successfully on first request")
+            else:
+                print("[!] Model could not be loaded, API will provide error responses")
         except Exception as e:
             print(f"[✗] Failed to load model: {e}")
-            # Don't crash, will retry on next request
+            # Continue anyway - API will respond with error when predict is called
 
 @app.route("/", methods=["GET"])
 def home():
     """Health check and API documentation"""
+    model_status = "✅ Ready" if model is not None else "⚠️ Loading..."
     return jsonify({
         "project": "🌿 Mango Leaf Disease Detector",
         "version": "1.0",
         "accuracy": "99.87%",
+        "model_status": model_status,
         "endpoints": {
             "POST /predict": "Send an image file to detect disease",
             "GET /health": "Check API status",
+            "GET /diseases": "List all supported diseases",
+            "GET /info/<disease>": "Get disease details",
             "GET /": "This help message"
         },
         "usage": {
