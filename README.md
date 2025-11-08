@@ -95,6 +95,21 @@ python app.py
 
 See **DEPLOY.md** for complete deployment guide including Docker, Cloud Run, Render, AWS, etc.
 
+### 📥 Model Files (For Deployment)
+
+Model files are large (~961 MB) and stored locally. For cloud deployment:
+
+```bash
+# Download model helper script
+python download_model.py
+```
+
+The script handles model download from cloud storage. See **DEPLOY.md - Model Loading Strategies** for options:
+- GitHub Releases (free)
+- AWS S3
+- Google Cloud Storage
+- Hugging Face Hub
+
 ---
 
 ## 🖥️ How to Use the Desktop App
