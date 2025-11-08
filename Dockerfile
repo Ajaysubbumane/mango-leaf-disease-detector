@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements-server.txt .
 RUN pip install --no-cache-dir -r requirements-server.txt
 
-# Copy application code (NOT model files)
+# Copy application code
 COPY app.py /app/
+COPY wsgi.py /app/
 
 # Model directory (will be created, weights optional)
 RUN mkdir -p /app/saved_models/7
