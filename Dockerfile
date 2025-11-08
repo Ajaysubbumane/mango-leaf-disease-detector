@@ -17,7 +17,6 @@ RUN pip install --no-cache-dir -r requirements-server.txt
 
 # Copy application code (NOT model files)
 COPY app.py /app/
-COPY class_names.json /app/ 2>/dev/null || true
 
 # Model directory (volumes or download at runtime)
 RUN mkdir -p /app/saved_models/7
