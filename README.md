@@ -73,7 +73,31 @@ C:\Users\ajayd\Downloads\MangDisease
 7. Powdery Mildew
 8. Sooty Mould
 
-## 🚀 How to Use the App
+## 🚀 Deployment Options
+
+This project is now **deployment-ready**! Choose how to run it:
+
+### Option 1: Desktop GUI (For Local Demo)
+```bash
+python mango_ui_best.py
+```
+Beautiful Tkinter interface with real-time predictions.
+
+### Option 2: REST API Server (For Web/Mobile)
+```bash
+# Install server dependencies
+pip install -r requirements-server.txt
+
+# Run Flask API
+python app.py
+# API available at http://localhost:8080
+```
+
+See **DEPLOY.md** for complete deployment guide including Docker, Cloud Run, Render, AWS, etc.
+
+---
+
+## 🖥️ How to Use the Desktop App
 
 1. **Click "📁 Choose Image"** → Select a mango leaf photo
 2. **Click "🔍 ANALYZE LEAF"** → AI predicts the disease
@@ -83,6 +107,23 @@ C:\Users\ajayd\Downloads\MangDisease
    - Severity level (🔴 HIGH / 🟠 MEDIUM / ✅ NONE)
    - Treatment recommendations
    - All 8 predictions ranked
+
+---
+
+## 🌐 REST API Endpoints (if using `app.py`)
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/` | GET | API documentation |
+| `/health` | GET | Health check |
+| `/predict` | POST | Send image for prediction |
+| `/diseases` | GET | List all diseases |
+| `/info/<disease>` | GET | Get disease details |
+
+**Example:**
+```bash
+curl -X POST -F "file=@leaf.jpg" http://localhost:8080/predict
+```
 
 ## 🎓 For Viva Presentation
 
