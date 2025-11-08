@@ -23,10 +23,9 @@ COPY class_names.json /app/ 2>/dev/null || true
 RUN mkdir -p /app/saved_models/7
 
 # Try to download model from GitHub Release (optional, for cloud deployment)
-# Falls back gracefully if not available
-RUN apt-get update && apt-get install -y --no-install-recommends wget && rm -rf /var/lib/apt/lists/* ; \
+RUN apt-get update && apt-get install -y --no-install-recommends wget && rm -rf /var/lib/apt/lists/* && \
     wget -O /app/saved_models/7/model_weights.weights.h5 \
-    https://github.com/Ajaysubbumane/mango-leaf-disease-detector/releases/download/v7/model_weights.weights.h5 2>/dev/null || echo "Model download optional - will use local volume if available"
+    https://github.com/Ajaysubbumane/mango-leaf-disease-detector/releases/download/v7/model_weights.weights.h5 2>/dev/null || true
 
 # Expose port
 ENV PORT=8080
