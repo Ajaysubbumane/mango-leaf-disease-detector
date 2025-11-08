@@ -1,190 +1,360 @@
-# 🌿 Mango Leaf Disease Detector# 🌿 Mango Leaf Disease Detection System
+# 🌿 Mango Leaf Disease Detector# 🌿 Mango Leaf Disease Detector
 
 
 
-A production-ready deep learning system for detecting mango leaf diseases using Swin Transformer. Achieves **99.87% accuracy** with both desktop GUI and cloud REST API.A deep learning project that classifies mango leaf diseases using Swin Transformer transfer learning.
+A production-ready deep learning system for detecting mango leaf diseases using Swin Transformer. Achieves **99.87% accuracy** with desktop GUI and cloud REST API.A production-ready deep learning system for detecting mango leaf diseases using Swin Transformer. Achieves **99.87% accuracy** with desktop GUI and cloud REST API.
 
 
 
-## ✨ Features## 📁 Project Structure
+## ✨ Features## ✨ Features
 
 
 
-- ✅ **99.87% Accuracy** - Validation accuracy with 100% test accuracy```
+- ✅ **99.87% Accuracy** - Validation accuracy, 100% test accuracy- ✅ **99.87% Accuracy** - Validation accuracy, 100% test accuracy
 
-- ✅ **Desktop GUI** - Tkinter with 600×600 image displayresearch/
+- ✅ **Desktop GUI** - Tkinter with 600×600 image display- ✅ **Desktop GUI** - Tkinter with 600×600 image display
 
-- ✅ **REST API** - Flask with 5 endpoints for deployment├── swintin_executed.ipynb          # Training notebook (Swin-Tiny model)
+- ✅ **REST API** - Flask server with 4 endpoints- ✅ **REST API** - Flask server with 4 endpoints
 
-- ✅ **8 Diseases** - Comprehensive disease database├── mango_ui_best.py                # Desktop GUI for disease detection
+- ✅ **8 Diseases** - Comprehensive disease detection- ✅ **8 Diseases** - Comprehensive disease detection
 
-- ✅ **Temperature Scaling** - Calibrated confidence scores├── requirements.txt                # Python dependencies
+- ✅ **Temperature Scaling** - Calibrated confidence scores- ✅ **Temperature Scaling** - Calibrated confidence scores
 
-- ✅ **Docker Ready** - Container deployment support├── saved_models/                   # Trained model weights (v7)
+- ✅ **Docker Ready** - Production container deployment- ✅ **Docker Ready** - Production container deployment
 
-- ✅ **Live API** - https://mango-leaf-disease-detector-1.onrender.com│   └── 7/
+- ✅ **Live API** - https://mango-leaf-disease-detector-1.onrender.com- ✅ **Live API** - https://mango-leaf-disease-detector-1.onrender.com
 
-│       ├── model.keras
 
-## 📁 Project Structure│       ├── model_weights.weights.h5
 
-│       └── metadata.json
+## 📁 Project Structure## 📁 Project Structure
 
-```└── README.md                       # This file
 
-.```
 
-├── app.py                    # Flask REST API
+``````
 
-├── mango_ui_best.py          # Tkinter Desktop GUI## 🎯 Quick Start
+..
 
-├── swintin_executed.ipynb    # Training notebook
+├── app.py                      # Flask REST API (177 lines)├── app.py                      # Flask REST API (177 lines)
 
-├── Dockerfile                # Docker configuration### 1. Setup Environment
+├── wsgi.py                     # Gunicorn entry point├── wsgi.py                     # Gunicorn entry point
 
-├── requirements.txt          # GUI dependencies```bash
+├── mango_ui_best.py            # Desktop GUI (500 lines)├── mango_ui_best.py            # Desktop GUI (500 lines)
 
-├── requirements-server.txt   # API dependencies# Activate virtual environment
+├── swintin_executed.ipynb      # Training notebook├── swintin_executed.ipynb      # Training notebook
 
-└── saved_models/7/           # Trained model.venv\Scripts\Activate.ps1
+├── Dockerfile                  # Container configuration├── Dockerfile                  # Container configuration
 
-    ├── model.keras
+├── requirements.txt            # GUI dependencies├── requirements.txt            # GUI dependencies
 
-    ├── model_weights.weights.h5# Install dependencies (if needed)
+├── requirements-server.txt     # API dependencies├── requirements-server.txt     # API dependencies
 
-    └── metadata.jsonpip install -r requirements.txt
+├── templates/├── templates/
+
+│   └── index.html             # Web UI (521 lines)│   └── index.html             # Web UI (521 lines)
+
+└── saved_models/7/└── saved_models/7/
+
+    ├── model.keras    ├── model.keras
+
+    ├── model_weights.weights.h5    ├── model_weights.weights.h5
+
+    └── metadata.json    └── metadata.json
 
 ``````
 
 
 
-## 🚀 Quick Start### 2. Run Training (Optional)
+## 🚀 Quick Start## 🚀 Quick Start
 
-```bash
 
-### Desktop GUI# Open Jupyter and run swintin_executed.ipynb
 
-```bash# Dataset path: C:\Users\ajayd\Downloads\MangDisease
+### Option 1: Live Web Application### Option 1: Use Live Web Application
 
-pip install -r requirements.txt```
+Visit: **https://mango-leaf-disease-detector-1.onrender.com**Visit: **https://mango-leaf-disease-detector-1.onrender.com**
+
+- Upload mango leaf images
+
+1. Open the link in your browser- Get real-time predictions
+
+2. Upload a mango leaf image- View confidence scores & treatment info
+
+3. Click "Predict Disease"
+
+4. View results with confidence score### Option 2: Desktop Application
+
+
+
+### Option 2: Desktop Application    ├── model_weights.weights.h5# Install dependencies (if needed)
+
+
+
+```bash    └── metadata.jsonpip install -r requirements.txt
+
+# Clone repository
+
+git clone https://github.com/Ajaysubbumane/mango-leaf-disease-detector``````
+
+cd mango-leaf-disease-detector
+
+
+
+# Install dependencies
+
+pip install -r requirements.txt## 🚀 Quick Start### 2. Run Training (Optional)
+
+
+
+# Run GUI```bash
 
 python mango_ui_best.py
 
-```### 3. Run the UI App
+```### Desktop GUI# Open Jupyter and run swintin_executed.ipynb
+
+
+
+### Option 3: REST API```bash# Dataset path: C:\Users\ajayd\Downloads\MangDisease
+
+
+
+```bashpip install -r requirements.txt```
+
+# Install dependencies
+
+pip install -r requirements-server.txtpython mango_ui_best.py
+
+
+
+# Run server```### 3. Run the UI App
+
+python app.py
 
 ```bash
 
-### REST API Serverpython mango_ui_best.py
+# API will be available at http://localhost:8080
 
-```bash```
+```### REST API Serverpython mango_ui_best.py
 
-pip install -r requirements-server.txt
 
-python app.py## 📊 Model Details
 
-```
+## 📊 Model Details```bash```
 
-Visit: http://localhost:8080- **Architecture**: Swin Transformer Tiny (ImageNet pretrained backbone)
 
-- **Classes**: 8 disease types (Anthracnose, Bacterial Canker, Cutting Weevil, Die Back, Gall Midge, Healthy, Powdery Mildew, Sooty Mould)
 
-### Docker- **Image Size**: 224×224
+- **Architecture**: Swin Transformer Tiny224 (ImageNet pretrained)pip install -r requirements-server.txt
 
-```bash- **Training**: Two-phase (frozen backbone + fine-tuning)
+- **Accuracy**: 99.87% validation, 100% test
 
-docker build -t mango-detector .- **Accuracy**: 99.87% validation, 100% test
+- **Training**: Two-phase (frozen backbone + fine-tuning)python app.py## 📊 Model Details
 
-docker run -p 8080:8080 mango-detector
+- **Epochs**: 60 (30 frozen + 30 fine-tune)
+
+- **Input**: 224×224×3 RGB images```
+
+- **Output**: 8 disease classes + Healthy
+
+- **Parameters**: 28MVisit: http://localhost:8080- **Architecture**: Swin Transformer Tiny (ImageNet pretrained backbone)
+
+
+
+## 🦠 Supported Diseases- **Classes**: 8 disease types (Anthracnose, Bacterial Canker, Cutting Weevil, Die Back, Gall Midge, Healthy, Powdery Mildew, Sooty Mould)
+
+
+
+1. **Anthracnose** - Fungal disease with dark circular lesions### Docker- **Image Size**: 224×224
+
+2. **Bacterial Canker** - Water-soaked lesions with yellow halo
+
+3. **Cutting Weevil** - Pest causing irregular leaf holes```bash- **Training**: Two-phase (frozen backbone + fine-tuning)
+
+4. **Die Back** - Branch death from tip to base
+
+5. **Gall Midge** - Abnormal leaf growths and deformationsdocker build -t mango-detector .- **Accuracy**: 99.87% validation, 100% test
+
+6. **Healthy** - No disease detected
+
+7. **Powdery Mildew** - White powdery coating on leavesdocker run -p 8080:8080 mango-detector
+
+8. **Sooty Mould** - Black sooty coating from insect honeydew
 
 ```## 🖥️ GUI Features
 
+## 🌐 API Endpoints
 
 
-## 📊 Model Details- 📸 Upload mango leaf image
 
-- 🔍 Click "ANALYZE LEAF" to detect disease
+| Endpoint | Method | Purpose |
 
-- **Architecture**: Swin Transformer Tiny224- 📊 View highlighted results (disease, confidence, severity)
+|----------|--------|---------|## 📊 Model Details- 📸 Upload mango leaf image
 
-- **Accuracy**: 99.87% validation, 100% test- 📈 See all 8 disease predictions ranked by confidence
+| `/` | GET | Web UI interface |
 
-- **Training**: 60 epochs (30 frozen + 30 fine-tune)- 📝 Treatment recommendations included
-
-- **Input**: 224×224×3 RGB images
-
-- **Output**: 8 disease classes + Healthy## 🔧 Dataset Path
-
-- **Parameters**: 28M
-
-Training dataset location:
-
-## 🌐 API Endpoints```
-
-C:\Users\ajayd\Downloads\MangDisease
-
-| Endpoint | Method | Purpose |```
-
-|----------|--------|---------|
-
-| `/` | GET | API documentation |## 📚 Class Names (Order Used)
+| `/api` | GET | API documentation |- 🔍 Click "ANALYZE LEAF" to detect disease
 
 | `/health` | GET | Health check |
 
-| `/predict` | POST | Predict disease from image |1. Anthracnose
-
-| `/diseases` | GET | List all diseases |2. Bacterial Canker
-
-| `/info/<disease>` | GET | Disease information |3. Cutting Weevil
-
-4. Die Back
-
-### Predict Example5. Gall Midge
-
-```bash6. Healthy
-
-curl -X POST -F "file=@leaf.jpg" http://localhost:8080/predict7. Powdery Mildew
-
-```8. Sooty Mould
+| `/predict` | POST | Predict disease from image |- **Architecture**: Swin Transformer Tiny224- 📊 View highlighted results (disease, confidence, severity)
 
 
 
-## 🦠 Supported Diseases## 🚀 Deployment Options
+### Predict Example- **Accuracy**: 99.87% validation, 100% test- 📈 See all 8 disease predictions ranked by confidence
 
 
+
+```bash- **Training**: 60 epochs (30 frozen + 30 fine-tune)- 📝 Treatment recommendations included
+
+curl -X POST -F "file=@leaf.jpg" https://mango-leaf-disease-detector-1.onrender.com/predict
+
+```- **Input**: 224×224×3 RGB images
+
+
+
+Response:- **Output**: 8 disease classes + Healthy## 🔧 Dataset Path
+
+```json
+
+{- **Parameters**: 28M
+
+  "disease": "Anthracnose",
+
+  "confidence": 0.98,Training dataset location:
+
+  "confidence_text": "Very High Confidence (98.0%)",
+
+  "description": "Fungal disease causing dark, sunken lesions...",## 🌐 API Endpoints```
+
+  "treatment": "Use fungicides like copper sulfate...",
+
+  "all_predictions": [...]C:\Users\ajayd\Downloads\MangDisease
+
+}
+
+```| Endpoint | Method | Purpose |```
+
+
+
+## 🐳 Docker Deployment|----------|--------|---------|
+
+
+
+```bash| `/` | GET | API documentation |## 📚 Class Names (Order Used)
+
+# Build image
+
+docker build -t mango-detector .| `/health` | GET | Health check |
+
+
+
+# Run container| `/predict` | POST | Predict disease from image |1. Anthracnose
+
+docker run -p 8080:8080 mango-detector
+
+```| `/diseases` | GET | List all diseases |2. Bacterial Canker
+
+
+
+## 📚 Technology Stack| `/info/<disease>` | GET | Disease information |3. Cutting Weevil
+
+
+
+- **ML**: TensorFlow 2.20.0, Keras 3.10.04. Die Back
+
+- **Model**: Swin Transformer Tiny (tfswin)
+
+- **Frontend**: HTML5, CSS3, JavaScript### Predict Example5. Gall Midge
+
+- **Backend**: Flask 3.0.0, Gunicorn
+
+- **Desktop**: Tkinter```bash6. Healthy
+
+- **Container**: Docker
+
+- **Deployment**: Rendercurl -X POST -F "file=@leaf.jpg" http://localhost:8080/predict7. Powdery Mildew
+
+
+
+## 📈 Training Details```8. Sooty Mould
+
+
+
+### Data Augmentation
+
+- RandomFlip (horizontal & vertical)
+
+- RandomRotation (0.2)## 🦠 Supported Diseases## 🚀 Deployment Options
+
+- RandomZoom (0.2)
+
+- RandomContrast (0.2)
+
+- RandomBrightness (0.1)
 
 1. **Anthracnose** - Fungal disease with dark circular lesionsThis project is now **deployment-ready**! Choose how to run it:
 
-2. **Bacterial Canker** - Water-soaked lesions from bacteria
+### Optimization
 
-3. **Cutting Weevil** - Pest causing irregular leaf holes### Option 1: Desktop GUI (For Local Demo)
+- Phase 1: Frozen backbone, lr=1e-42. **Bacterial Canker** - Water-soaked lesions from bacteria
 
-4. **Die Back** - Progressive branch death```bash
+- Phase 2: Fine-tuning, lr=5e-5
 
-5. **Gall Midge** - Abnormal tissue growthspython mango_ui_best.py
+- Optimizer: Adam3. **Cutting Weevil** - Pest causing irregular leaf holes### Option 1: Desktop GUI (For Local Demo)
 
-6. **Healthy** - No disease detected```
+- Loss: Sparse Categorical Crossentropy
 
-7. **Powdery Mildew** - White fungal coatingBeautiful Tkinter interface with real-time predictions.
+- Regularization: L2 (1e-4)4. **Die Back** - Progressive branch death```bash
 
-8. **Sooty Mould** - Black fungal coating
 
-### Option 2: REST API Server (For Web/Mobile)
 
-## 💻 GUI Features```bash
+### Temperature Scaling5. **Gall Midge** - Abnormal tissue growthspython mango_ui_best.py
 
-# Install server dependencies
+- Temperature: 0.15
 
-- 600×600 image previewpip install -r requirements-server.txt
+- For calibrated confidence scores6. **Healthy** - No disease detected```
 
-- Real-time disease prediction
 
-- Confidence scores >90%# Run Flask API
 
-- Treatment recommendationspython app.py
+## 🔗 Links7. **Powdery Mildew** - White fungal coatingBeautiful Tkinter interface with real-time predictions.
+
+
+
+- **GitHub**: https://github.com/Ajaysubbumane/mango-leaf-disease-detector8. **Sooty Mould** - Black fungal coating
+
+- **Live API**: https://mango-leaf-disease-detector-1.onrender.com
+
+- **Model**: Swin Transformer Tiny224### Option 2: REST API Server (For Web/Mobile)
+
+
+
+## 📝 License## 💻 GUI Features```bash
+
+
+
+This project is open source and available for educational and research purposes.# Install server dependencies
+
+
+
+## ✨ Ready for Production- 600×600 image previewpip install -r requirements-server.txt
+
+
+
+- ✅ 99.87% accuracy model- Real-time disease prediction
+
+- ✅ Production-grade code
+
+- ✅ Comprehensive error handling- Confidence scores >90%# Run Flask API
+
+- ✅ Complete documentation
+
+- ✅ Live deployment- Treatment recommendationspython app.py
+
+- ✅ Ready for viva/presentation
 
 - Prevention guidelines# API available at http://localhost:8080
 
+---
+
 - Threading for smooth operation```
+
+**Created**: November 2025 | **Status**: ✅ Production Ready
 
 - Dark professional theme
 
