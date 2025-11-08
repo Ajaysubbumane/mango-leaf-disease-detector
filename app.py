@@ -5,7 +5,6 @@ import os
 import numpy as np
 from PIL import Image
 import io
-import json
 
 app = Flask(__name__, template_folder='templates')
 

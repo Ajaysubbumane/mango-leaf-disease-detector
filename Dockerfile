@@ -18,6 +18,7 @@ RUN pip install --no-cache-dir -r requirements-server.txt
 # Copy application code
 COPY app.py /app/
 COPY wsgi.py /app/
+COPY templates/ /app/templates/
 
 # Model directory (will be created, weights optional)
 RUN mkdir -p /app/saved_models/7
