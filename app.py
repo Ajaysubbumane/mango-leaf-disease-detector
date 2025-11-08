@@ -121,15 +121,21 @@ def build_model():
     model.load_weights(WEIGHTS_PATH)
     return model
 
-@app.before_first_request
-def startup():
-    """Load model on first request"""
-    global model
-    try:
-        model = build_model()
-        print("[✓] Model loaded successfully")
-    except Exception as e:
-        print(f"[✗] Failed to load model: {e}")
+# Global flag to track model loading
+_model_loaded = False
+
+@app.before_request
+def load_model_if_needed():
+    """Load model on first request (Flask 3.0 compatible)"""
+    global model, _model_loaded
+    if not _model_loaded and model is None:
+        try:
+            model = build_model()
+            _model_loaded = True
+            print("[✓] Model loaded successfully on first request")
+        except Exception as e:
+            print(f"[✗] Failed to load model: {e}")
+            # Don't crash, will retry on next request
 
 @app.route("/", methods=["GET"])
 def home():
